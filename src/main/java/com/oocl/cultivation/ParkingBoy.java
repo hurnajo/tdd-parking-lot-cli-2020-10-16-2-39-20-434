@@ -7,10 +7,10 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        return (ParkingTicket) parkingLot.park(car);
+        return parkingLot.park(car);
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        return null;
+        return parkingLot.fetch(parkingTicket);
     }
 }
