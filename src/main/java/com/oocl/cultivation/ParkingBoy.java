@@ -15,17 +15,4 @@ public class ParkingBoy {
     public Car fetch(ParkingTicket parkingTicket) {
         return parkingLot.fetch(parkingTicket);
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ParkingBoy that = (ParkingBoy) o;
-        return Objects.equals(parkingLot, that.parkingLot);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(parkingLot);
-    }
 }
