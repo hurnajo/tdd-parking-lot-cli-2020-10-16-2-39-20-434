@@ -77,10 +77,12 @@ class ParkingBoyTest {
         Car car = new Car();
         ParkingLot parkingLot = new ParkingLot();
         ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
-        ParkingTicket parkingTicket = parkingBoy.park(car);
+        ParkingTicket parkingTicket = parkingBoy.park(null);
         //when
         Car fetchCar = parkingBoy.fetch(parkingTicket);
         //then
         assertNull(fetchCar);
     }
+
+    
 }

@@ -14,4 +14,8 @@ public class ParkingLot {
     public Car fetch(ParkingTicket parkingTicket) {
         return ticketCarMap.get(parkingTicket);
     }
+
+    public boolean isValidTicket(ParkingTicket parkingTicket){
+        return parkingTicket == null ? true : false;
+    }
 }
