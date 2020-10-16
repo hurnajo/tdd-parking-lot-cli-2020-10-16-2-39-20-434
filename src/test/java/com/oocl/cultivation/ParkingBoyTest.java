@@ -30,7 +30,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_fetched_Two_cars_when_fetch_two_car_given_parking_boy_two_cars() {
+    public void should_return_corresponding_cars_when_fetch_two_car_given_parking_boy_two_cars() {
         //given
         Car car = new Car();
         Car car2 = new Car();
