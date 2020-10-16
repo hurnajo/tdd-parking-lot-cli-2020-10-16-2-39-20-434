@@ -2,6 +2,8 @@ package com.oocl.cultivation;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.IntStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingBoyTest {
@@ -84,5 +86,18 @@ class ParkingBoyTest {
         assertNull(fetchCar);
     }
 
-    
+    @Test
+    void should_return_park_car_failed_and_no_ticket_returned_when_fetching_given_parking_lot_capacity_1() {
+        //given
+        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        IntStream.rangeClosed(0,9).forEach(num->{Car car = new Car();
+        parkingBoy.park(car);});
+        //when
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+        //then
+       assertNull(parkingTicket);
+    }
+
 }
