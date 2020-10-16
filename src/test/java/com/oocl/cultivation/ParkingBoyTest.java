@@ -36,11 +36,13 @@ class ParkingBoyTest {
         Car car2 = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         ParkingTicket parkingTicket = parkingBoy.park(car);
+        ParkingTicket parkingTicket2 = parkingBoy.park(car2);
         //when
         Car fetchedCar = parkingBoy.fetch(parkingTicket);
+        Car fetchedCar2 = parkingBoy.fetch(parkingTicket2);
         //then
         assertEquals(car,fetchedCar);
-        assertEquals(car2,fetchedCar);
+        assertEquals(car2,fetchedCar2);
 
     }
 
