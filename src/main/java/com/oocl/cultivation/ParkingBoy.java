@@ -4,6 +4,9 @@ import java.util.Objects;
 
 public class ParkingBoy {
     private final ParkingLot parkingLot;
+    private String lastErrorMessage;
+
+
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
     }
@@ -14,5 +17,9 @@ public class ParkingBoy {
 
     public Car fetch(ParkingTicket parkingTicket) {
         return parkingLot.fetch(parkingTicket);
+    }
+
+    private void ParkingLotFullMessage(Car car){
+        this.lastErrorMessage = parkingLot.isParkingLotFull(car) == true? "Not enough position." : null;
     }
 }
