@@ -24,6 +24,7 @@ public class ParkingBoy {
         return parkingLot.park(car);
     }
 
+
     public Car fetch(ParkingTicket parkingTicket) {
         Car carFetched = new Car();
         if (checkTicket(parkingTicket)) {
@@ -38,11 +39,15 @@ public class ParkingBoy {
 
     public ParkingLot getParkinglot() {
         for(ParkingLot parkingLot: parkingLotList){
-            if(parkingLot.getTicketCarMap().size()<parkingLot.getCapacity()){
+            if(!parkingLot.isFull()){
                 return parkingLot;
             }
         }
         throw new FullParkingException("Not enough position.");
+    }
+
+    public void setParkingLot(List<ParkingLot> listParkingLots) {
+        this.parkingLotList = listParkingLots;
     }
 
     private boolean checkTicket(ParkingTicket parkingTicket) {
