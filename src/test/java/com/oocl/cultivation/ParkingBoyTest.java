@@ -92,13 +92,15 @@ class ParkingBoyTest {
     @Test
     void should_return_park_car_failed_and_no_ticket_returned_when_fetching_given_parking_lot_capacity_1() {
         //given
-        ParkingLot parkingLot = new ParkingLot(1);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
-        //when
-        Car car = new Car();
-        ParkingTicket parkingTicket = parkingBoy.park(car);
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(1));
+        parkingBoy.park(new Car());
+         //when
+        Exception exception =
+                assertThrows(RuntimeException.class,
+                        () -> parkingBoy.park(new Car()));
+        assertEquals("Not enough position.", exception.getMessage());
         //then
-        assertNull(parkingTicket);
+
     }
 
 }
