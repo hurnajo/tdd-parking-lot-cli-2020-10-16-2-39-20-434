@@ -1,10 +1,9 @@
 package com.oocl.cultivation;
 
-public class ParkingBoy {
-    private final ParkingLot parkingLot;
-    private String lastErrorMessage;
-    private ParkingTicket parkingTicket;
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
+public class ParkingBoy {
+    ParkingLot parkingLot;
 
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
@@ -17,7 +16,7 @@ public class ParkingBoy {
         return null;
     }
 
-    public Car fetch(ParkingTicket parkingTicket) {
+    public Car fetch(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException {
         if(parkingTicket == null){
             throw new UnrecognizedParkingTicketException("Please provide your parking ticket.");
         }
