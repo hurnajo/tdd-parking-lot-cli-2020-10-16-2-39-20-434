@@ -8,10 +8,8 @@ import com.oocl.cultivation.exception.FullParkingException;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 public class SmartParkingBoy extends ParkingBoy {
-    private List<ParkingLot> parkingLotList;
     public  SmartParkingBoy(List<ParkingLot> parkingLotList){
         super(parkingLotList);
     }
@@ -21,7 +19,7 @@ public class SmartParkingBoy extends ParkingBoy {
     }
     public ParkingLot getParkinglot(List<ParkingLot> parkingLotList) {
         return  parkingLotList.stream().max(Comparator.comparing(ParkingLot::getEmpty))
-                .filter(c -> c.getTickatCarMapSize()!=c.getCapacity())
+                .filter(a -> a.getTicketAndCarMapSize()!=a.getCapacity())
                 .orElseThrow(() -> new FullParkingException("Not enough position."));
     }
 }

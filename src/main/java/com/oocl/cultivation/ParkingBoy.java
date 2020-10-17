@@ -9,6 +9,9 @@ import java.util.List;
 
 public class ParkingBoy {
     private List<ParkingLot> parkingLotList;
+    private final String PROVIDE_TICKET = "Please provide your parking ticket.";
+    private final String UNRECOGNIZE_TICKET = "Unrecognized parking ticket.";
+    private final String NOT_ENOUGH_SPACE = "Not enough position.";
 
     public ParkingBoy(List<ParkingLot> parkingLotList) {
         this.parkingLotList = parkingLotList;
@@ -33,7 +36,7 @@ public class ParkingBoy {
             }
             return carFetched;
         } else {
-            throw new UnrecognizedParkingTicketException("Unrecognized parking ticket.");
+            throw new UnrecognizedParkingTicketException(UNRECOGNIZE_TICKET);
         }
     }
 
@@ -43,7 +46,7 @@ public class ParkingBoy {
                 return parkingLot;
             }
         }
-        throw new FullParkingException("Not enough position.");
+        throw new FullParkingException(NOT_ENOUGH_SPACE);
     }
 
     public void setParkingLot(List<ParkingLot> listParkingLots) {
@@ -52,10 +55,10 @@ public class ParkingBoy {
 
     private boolean checkTicket(ParkingTicket parkingTicket) {
         if (parkingTicket == null) {
-            throw new NullParkingTicketException("Please provide your parking ticket.");
+            throw new NullParkingTicketException(PROVIDE_TICKET);
         }
         return parkingLotList.stream().anyMatch(parkingLots ->
-                parkingLots.getTicketCarMap().containsKey(parkingTicket));
+                parkingLots.getTicketAndCarMap().containsKey(parkingTicket));
     }
     public List<ParkingLot> getParkingLotList(){
         return parkingLotList;

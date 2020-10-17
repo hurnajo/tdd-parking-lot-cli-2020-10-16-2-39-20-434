@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ParkingLot {
     private int capacity;
-    private Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
+    private Map<ParkingTicket, Car> ticketAndCarMap = new HashMap<>();
 
     public ParkingLot() {
         this(10);
@@ -19,35 +19,35 @@ public class ParkingLot {
 
     public ParkingTicket park(Car car) {
         ParkingTicket parkingTicket = new ParkingTicket();
-        ticketCarMap.put(parkingTicket, car);
+        ticketAndCarMap.put(parkingTicket, car);
         return parkingTicket;
     }
 
     Car fetch(ParkingTicket parkingTicket) {
-        if (!ticketCarMap.containsKey(parkingTicket)) {
+        if (!ticketAndCarMap.containsKey(parkingTicket)) {
             throw new UnrecognizedParkingTicketException("Unrecognized parking ticket.");
         }
-        Car carParked = ticketCarMap.get(parkingTicket);
-        ticketCarMap.remove(parkingTicket);
+        Car carParked = ticketAndCarMap.get(parkingTicket);
+        ticketAndCarMap.remove(parkingTicket);
         return carParked;
     }
 
     boolean isFull() {
-        return ticketCarMap.size() >= capacity;
+        return ticketAndCarMap.size() >= capacity;
     }
 
-    public int getTickatCarMapSize(){
-        return ticketCarMap.size();
+    public int getTicketAndCarMapSize(){
+        return ticketAndCarMap.size();
     }
 
     public int getCapacity(){
         return capacity;
     }
     public int getEmpty(){
-        return  capacity-ticketCarMap.size();
+        return  capacity- ticketAndCarMap.size();
     }
 
-    Map<ParkingTicket, Car> getTicketCarMap() {
-        return ticketCarMap;
+    Map<ParkingTicket, Car> getTicketAndCarMap() {
+        return ticketAndCarMap;
     }
 }

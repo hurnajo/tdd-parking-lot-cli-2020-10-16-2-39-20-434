@@ -145,6 +145,6 @@ public class SmartParkingBoyTest {
         //when
         smartParkingBoy.park(car2);
         //then
-        assertEquals(1, parkinglot2.getTicketCarMap().size());
+        assertEquals(1, parkinglot2.getTicketAndCarMap().size());
     }
 }

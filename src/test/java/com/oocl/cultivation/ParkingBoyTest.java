@@ -5,11 +5,9 @@ import com.oocl.cultivation.exception.NullParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -123,8 +121,8 @@ class ParkingBoyTest {
         ParkingLot parkinglot2 = new ParkingLot(5);
         List<ParkingLot> parkingLotList = Arrays.asList(parkingLot1, parkinglot2);
         parkingBoy.setParkingLot(parkingLotList);
-        int actual1 = parkingLot1.getTicketCarMap().size();
-        int actual2 = parkinglot2.getTicketCarMap().size();
+        int actual1 = parkingLot1.getTicketAndCarMap().size();
+        int actual2 = parkinglot2.getTicketAndCarMap().size();
         //when
         ParkingTicket ticket = parkingBoy.park(new Car());
         //then
