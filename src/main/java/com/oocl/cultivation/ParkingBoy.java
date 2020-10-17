@@ -13,14 +13,10 @@ public class ParkingBoy {
         return parkingLot.park(car);
     }
 
-    public Car fetch(ParkingTicket parkingTicket) {
+    public Car fetch(ParkingTicket parkingTicket) throws RuntimeException {
         if(parkingTicket == null){
-            throw new NullParkingTicketException("Please provide your parking ticket.");
+            throw new RuntimeException("Please provide your parking ticket.");
         }
         return parkingLot.fetch(parkingTicket);
-    }
-
-    private void ParkingLotFullMessage(Car car){
-        this.lastErrorMessage = parkingLot.isParkingLotFull(car) == true? "Not enough position." : null;
     }
 }

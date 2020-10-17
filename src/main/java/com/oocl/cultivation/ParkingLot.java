@@ -26,11 +26,11 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        return ticketCarMap.get(parkingTicket);
+        if(!ticketCarMap.containsKey(parkingTicket)){
+            throw new RuntimeException("Unrecognized parking ticket.");
+        }
+        Car car =ticketCarMap.get(parkingTicket);
+        ticketCarMap.remove(parkingTicket);
+        return car;
     }
-
-    public boolean isParkingLotFull(Car car){
-        return park(car) == null ? true : false;
-    }
-
 }

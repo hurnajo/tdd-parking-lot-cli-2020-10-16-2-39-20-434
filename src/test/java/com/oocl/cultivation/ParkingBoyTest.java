@@ -1,5 +1,6 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,13 +50,16 @@ class ParkingBoyTest {
     @Test
     public void should_return_no_car_when_fetching_a_car_given_wrong_ticket() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        Car car = new Car();
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         //when
-        ParkingTicket parkingTicket = new ParkingTicket(parkingLot);
-        Car fetchCar = parkingBoy.fetch(parkingTicket);
+        ParkingTicket originalParkingTicket = parkingBoy.park(car);
+        ParkingTicket wrongParkingTicket = new ParkingTicket();
         //then
-        assertNull(fetchCar);
+        assertNotSame(originalParkingTicket,wrongParkingTicket);
+        Exception exception = assertThrows(RuntimeException.class,()->
+                parkingBoy.fetch(wrongParkingTicket));
+        assertEquals("Unrecognized parking ticket.",exception.getMessage());
     }
 
     @Test
@@ -67,7 +71,7 @@ class ParkingBoyTest {
         ParkingTicket parkingTicket = parkingBoy.park(null);
         Car fetchCar = parkingBoy.fetch(parkingTicket);
         //then
-        Exception exception = assertThrows(NullParkingTicketException.class, () -> parkingBoy.fetch(null));
+        Exception exception = assertThrows(RuntimeException.class, () -> parkingBoy.fetch(null));
         assertEquals("Please provide your parking ticket.", exception.getMessage());
 
     }
