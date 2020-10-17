@@ -16,10 +16,10 @@ public class SuperSmartParkingBoyTest {
         Car car = new Car();
         List<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(new ParkingLot());
-        SuperSmartParkingBoy smartParkingBoy = new SuperSmartParkingBoy(parkingLots);
+        SuperSmartParkingBoy SuperSmartParkingBoy = new SuperSmartParkingBoy(parkingLots);
 
         //when
-        ParkingTicket ticket = smartParkingBoy.park(car);
+        ParkingTicket ticket = SuperSmartParkingBoy.park(car);
 
         //then
         assertNotNull(ticket);

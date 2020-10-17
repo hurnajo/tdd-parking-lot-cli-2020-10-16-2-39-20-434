@@ -40,10 +40,10 @@ public class ParkingLot {
         return ticketAndCarMap.size();
     }
 
-    public int getCapacity(){
+    public int getParkingLotCapacity(){
         return capacity;
     }
-    public int getEmpty(){
+    public int getEmptySpace(){
         return  capacity- ticketAndCarMap.size();
     }
 

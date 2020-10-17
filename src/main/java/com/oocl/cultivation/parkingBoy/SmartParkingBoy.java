@@ -18,8 +18,8 @@ public class SmartParkingBoy extends ParkingBoy {
         return lot.park(car);
     }
     public ParkingLot getParkinglot(List<ParkingLot> parkingLotList) {
-        return  parkingLotList.stream().max(Comparator.comparing(ParkingLot::getEmpty))
-                .filter(a -> a.getTicketAndCarMapSize()!=a.getCapacity())
+        return  parkingLotList.stream().max(Comparator.comparing(ParkingLot::getEmptySpace))
+                .filter(a -> a.getTicketAndCarMapSize()!=a.getParkingLotCapacity())
                 .orElseThrow(() -> new FullParkingException("Not enough position."));
     }
 }
