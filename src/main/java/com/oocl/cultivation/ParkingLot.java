@@ -22,6 +22,9 @@ public class ParkingLot {
     public ParkingTicket park(Car car) {
         ParkingTicket ticket = new ParkingTicket();
         ticketCarMap.put(ticket,car);
+        if(ticketCarMap.size()>capacity){
+            throw new RuntimeException("Not enough position.");
+        }
         return getAvailableParkingPosition()<0?ticket:null;
     }
 
