@@ -1,5 +1,9 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.FullParkingException;
+import com.oocl.cultivation.exception.NullParkingTicketException;
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
+
 import java.util.List;
 
 public class ParkingBoy {
@@ -22,12 +26,12 @@ public class ParkingBoy {
                 return parkingLot;
             }
         }
-        throw new RuntimeException("Not enough position.");
+        throw new FullParkingException("Not enough position.");
     }
 
-    public Car fetch(ParkingTicket parkingTicket) throws RuntimeException {
+    public Car fetch(ParkingTicket parkingTicket) throws NullParkingTicketException {
         if(parkingTicket == null){
-            throw new RuntimeException("Please provide your parking ticket.");
+            throw new NullParkingTicketException("Please provide your parking ticket.");
         }
         return parkingLot.fetch(parkingTicket);
     }

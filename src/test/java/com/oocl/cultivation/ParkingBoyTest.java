@@ -1,5 +1,7 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.FullParkingException;
+import com.oocl.cultivation.exception.NullParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 
@@ -69,7 +71,7 @@ class ParkingBoyTest {
         ParkingTicket wrongParkingTicket = new ParkingTicket();
         //then
         assertNotSame(originalParkingTicket,wrongParkingTicket);
-        Exception exception = assertThrows(RuntimeException.class,()->
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class,()->
                 parkingBoy.fetch(wrongParkingTicket));
         assertEquals("Unrecognized parking ticket.",exception.getMessage());
     }
@@ -84,7 +86,7 @@ class ParkingBoyTest {
         parkingBoy.park(car);
         //when
         //then
-        Exception exception = assertThrows(RuntimeException.class, () -> parkingBoy.fetch(null));
+        Exception exception = assertThrows(NullParkingTicketException.class, () -> parkingBoy.fetch(null));
         assertEquals("Please provide your parking ticket.", exception.getMessage());
 
     }
@@ -100,7 +102,7 @@ class ParkingBoyTest {
         parkingBoy.fetch(parkingTicket);
         //when
         //then
-        RuntimeException exception = assertThrows(RuntimeException.class,
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class,
                 ()->{parkingBoy.fetch(parkingTicket);});
         assertSame("Unrecognized parking ticket.",exception.getMessage());
     }
@@ -115,7 +117,7 @@ class ParkingBoyTest {
         parkingBoy.park(car);
          //when
         Exception exception =
-                assertThrows(RuntimeException.class,
+                assertThrows(FullParkingException.class,
                         () -> parkingBoy.park(new Car()));
         assertEquals("Not enough position.", exception.getMessage());
         //then

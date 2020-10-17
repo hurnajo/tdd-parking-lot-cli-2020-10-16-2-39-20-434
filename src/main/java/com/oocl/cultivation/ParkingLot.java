@@ -1,5 +1,8 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.FullParkingException;
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,14 +26,14 @@ public class ParkingLot {
         ParkingTicket ticket = new ParkingTicket();
         ticketCarMap.put(ticket,car);
         if(ticketCarMap.size()>capacity){
-            throw new RuntimeException("Not enough position.");
+            throw new FullParkingException("Not enough position.");
         }
         return getAvailableParkingPosition()<0?ticket:null;
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
         if(!ticketCarMap.containsKey(parkingTicket)){
-            throw new RuntimeException("Unrecognized parking ticket.");
+            throw new UnrecognizedParkingTicketException("Unrecognized parking ticket.");
         }
         Car car =ticketCarMap.get(parkingTicket);
         ticketCarMap.remove(parkingTicket);
