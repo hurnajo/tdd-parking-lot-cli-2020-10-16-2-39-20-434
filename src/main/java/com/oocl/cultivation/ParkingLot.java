@@ -6,12 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
-    private int capacity;
+    private int capacity = 10;
     private Map<ParkingTicket, Car> ticketAndCarMap = new HashMap<>();
 
-    public ParkingLot() {
-        this(10);
-    }
+    public ParkingLot() {}
 
     public ParkingLot(int capacity) {
         this.capacity = capacity;
@@ -24,30 +22,30 @@ public class ParkingLot {
     }
 
     Car fetch(ParkingTicket parkingTicket) {
-        if (!ticketAndCarMap.containsKey(parkingTicket)) {
-            throw new UnrecognizedParkingTicketException("Unrecognized parking ticket.");
-        }
         Car carParked = ticketAndCarMap.get(parkingTicket);
         ticketAndCarMap.remove(parkingTicket);
         return carParked;
     }
 
-    boolean isFull() {
-        return ticketAndCarMap.size() >= capacity;
+    Map<ParkingTicket, Car> getTicketAndCarMap() {
+        return ticketAndCarMap;
     }
 
-    public int getTicketAndCarMapSize(){
+    public int getMapSize(){
         return ticketAndCarMap.size();
     }
 
     public int getParkingLotCapacity(){
         return capacity;
     }
+
+    public float getRate(){
+        float numberOfEmptySpace = capacity-ticketAndCarMap.size();
+        return (numberOfEmptySpace/capacity) *100;
+    }
+
     public int getEmptySpace(){
         return  capacity- ticketAndCarMap.size();
     }
 
-    Map<ParkingTicket, Car> getTicketAndCarMap() {
-        return ticketAndCarMap;
-    }
 }

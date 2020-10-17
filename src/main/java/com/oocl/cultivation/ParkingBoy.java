@@ -8,18 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingBoy {
-    private List<ParkingLot> parkingLotList;
-    private final String PROVIDE_TICKET = "Please provide your parking ticket.";
-    private final String UNRECOGNIZE_TICKET = "Unrecognized parking ticket.";
-    private final String NOT_ENOUGH_SPACE = "Not enough position.";
+    public List<ParkingLot> parkingLotList;
+    public static final String PROVIDE_TICKET = "Please provide your parking ticket.";
+    public static final String UNRECOGNIZE_TICKET = "Unrecognized parking ticket.";
+    public static final String NOT_ENOUGH_SPACE = "Not enough position.";
 
     public ParkingBoy(List<ParkingLot> parkingLotList) {
         this.parkingLotList = parkingLotList;
-    }
-
-    public ParkingBoy(ParkingLot parkingLot) {
-        this.parkingLotList = new ArrayList<>();
-        this.parkingLotList.add(parkingLot);
     }
 
     public ParkingTicket park(Car car) {
@@ -42,7 +37,7 @@ public class ParkingBoy {
 
     public ParkingLot getParkinglot() {
         for(ParkingLot parkingLot: parkingLotList){
-            if(!parkingLot.isFull()){
+            if(parkingLot.getTicketAndCarMap().size()!=parkingLot.getParkingLotCapacity()){
                 return parkingLot;
             }
         }
@@ -59,8 +54,5 @@ public class ParkingBoy {
         }
         return parkingLotList.stream().anyMatch(parkingLots ->
                 parkingLots.getTicketAndCarMap().containsKey(parkingTicket));
-    }
-    public List<ParkingLot> getParkingLotList(){
-        return parkingLotList;
     }
 }
