@@ -51,13 +51,15 @@ class ParkingBoyTest {
     @Test
     public void should_return_no_car_when_fetching_a_car_given_wrong_ticket() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        Car car = new Car();
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         //when
-        ParkingTicket parkingTicket = new ParkingTicket(parkingLot);
-        Car fetchCar = parkingBoy.fetch(parkingTicket);
+        ParkingTicket originalTicket = parkingBoy.park(car);
+        ParkingTicket wrongTicket = new ParkingTicket();
         //then
-        assertNull(fetchCar);
+        assertNotSame(originalTicket,wrongTicket);
+       Exception exception = assertThrows(UnrecognizedParkingTicketException.class,()->parkingBoy.fetch(wrongTicket));
+       assertEquals("Unrecognized parking ticket.",exception.getMessage());
     }
 
     @Test
@@ -69,8 +71,8 @@ class ParkingBoyTest {
         ParkingTicket parkingTicket = parkingBoy.park(null);
         Car fetchCar = parkingBoy.fetch(parkingTicket);
         //then
-        Exception exception = assertThrows(UnrecognizedParkingTicketException.class,()->parkingBoy.fetch(null));
-        assertEquals("Please provide your parking ticket.",exception.getMessage());
+        assertNull(parkingTicket);
+//        assertEquals("Please provide your parking ticket.",exception.getMessage());
 
     }
 
@@ -90,13 +92,10 @@ class ParkingBoyTest {
     @Test
     void should_return_park_car_failed_and_no_ticket_returned_when_fetching_given_parking_lot_capacity_1() {
         //given
-        ParkingLot parkingLot = new ParkingLot(1);
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
-        IntStream.rangeClosed(0,9).forEach(num->{Car car = new Car();
-        parkingBoy.park(car);});
-        //when
         Car car = new Car();
-        ParkingTicket parkingTicket = parkingBoy.park(car);
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(1,1));
+        //when
+       ParkingTicket parkingTicket = parkingBoy.park(car);
         //then
        assertNull(parkingTicket);
     }
