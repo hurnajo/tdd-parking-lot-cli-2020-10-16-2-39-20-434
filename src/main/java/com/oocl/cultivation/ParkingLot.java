@@ -36,8 +36,15 @@ public class ParkingLot {
         return ticketCarMap.size() >= capacity;
     }
 
-    public int countEmptySpot() {
-        return capacity - ticketCarMap.size();
+    public int getTickatCarMapSize(){
+        return ticketCarMap.size();
+    }
+
+    public int getCapacity(){
+        return capacity;
+    }
+    public int getEmpty(){
+        return  capacity-ticketCarMap.size();
     }
 
     Map<ParkingTicket, Car> getTicketCarMap() {

@@ -57,4 +57,7 @@ public class ParkingBoy {
         return parkingLotList.stream().anyMatch(parkingLots ->
                 parkingLots.getTicketCarMap().containsKey(parkingTicket));
     }
+    public List<ParkingLot> getParkingLotList(){
+        return parkingLotList;
+    }
 }
