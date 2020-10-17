@@ -23,28 +23,32 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
-        ParkingTicket ticket = new ParkingTicket();
-        ticketCarMap.put(ticket,car);
-        if(ticketCarMap.size()>capacity){
-            throw new FullParkingException("Not enough position.");
-        }
-        return getAvailableParkingPosition()<0?ticket:null;
+        ParkingTicket parkingTicket = new ParkingTicket();
+        ticketCarMap.put(parkingTicket,car);
+        return parkingTicket;
     }
-
-    public Car fetch(ParkingTicket parkingTicket) {
+     Car fetch(ParkingTicket parkingTicket) {
         if(!ticketCarMap.containsKey(parkingTicket)){
             throw new UnrecognizedParkingTicketException("Unrecognized parking ticket.");
         }
-        Car car =ticketCarMap.get(parkingTicket);
+        Car carParked = ticketCarMap.get(parkingTicket);
         ticketCarMap.remove(parkingTicket);
-        return car;
-    }
-
-    public Map<ParkingTicket, Car> getTicketCarMap() {
-        return ticketCarMap;
+        return carParked;
     }
 
     public int getCapacity(){
         return capacity;
+    }
+
+    public int countEmptySpot() {
+        return capacity - ticketCarMap.size();
+    }
+
+    boolean isParkingLotFull(){
+        return ticketCarMap.size() >= capacity;
+    }
+
+    public Map<ParkingTicket, Car> getTicketCarMap() {
+        return ticketCarMap;
     }
 }

@@ -4,23 +4,39 @@ import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.NullParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingBoy {
-    private  ParkingLot parkingLot;
     private List<ParkingLot> parkingLotList;
-    private String lastErrorMessage;
 
     public ParkingBoy(List<ParkingLot> parkingLotList) {
         this.parkingLotList = parkingLotList;
     }
 
+    public ParkingBoy(ParkingLot parkingLot) {
+        this.parkingLotList = new ArrayList<>();
+        this.parkingLotList.add(parkingLot);
+    }
+
     public ParkingTicket park(Car car) {
-        parkingLot = getParkinglot(parkingLotList);
+        ParkingLot parkingLot = getParkinglot();
         return parkingLot.park(car);
     }
 
-    private ParkingLot getParkinglot(List<ParkingLot> parkingLotList) {
+    public Car fetch(ParkingTicket parkingTicket) {
+        Car carFetched = new Car();
+        if (checkTicket(parkingTicket)) {
+            for (ParkingLot parkingLot : parkingLotList) {
+                carFetched = parkingLot.fetch(parkingTicket);
+            }
+            return carFetched;
+        } else {
+            throw new UnrecognizedParkingTicketException("Unrecognized parking ticket.");
+        }
+    }
+
+    public ParkingLot getParkinglot() {
         for(ParkingLot parkingLot: parkingLotList){
             if(parkingLot.getTicketCarMap().size()<parkingLot.getCapacity()){
                 return parkingLot;
@@ -29,10 +45,11 @@ public class ParkingBoy {
         throw new FullParkingException("Not enough position.");
     }
 
-    public Car fetch(ParkingTicket parkingTicket) throws NullParkingTicketException {
-        if(parkingTicket == null){
+    private boolean checkTicket(ParkingTicket parkingTicket) {
+        if (parkingTicket == null) {
             throw new NullParkingTicketException("Please provide your parking ticket.");
         }
-        return parkingLot.fetch(parkingTicket);
+        return parkingLotList.stream().anyMatch(parkingLots ->
+                parkingLots.getTicketCarMap().containsKey(parkingTicket));
     }
 }
