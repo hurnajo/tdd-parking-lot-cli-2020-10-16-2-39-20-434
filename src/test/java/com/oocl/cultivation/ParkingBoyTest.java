@@ -51,13 +51,10 @@ class ParkingBoyTest {
     @Test
     public void should_return_no_car_when_fetching_a_car_given_wrong_ticket() {
         //given
-        Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         //when
-        ParkingTicket originalTicket = parkingBoy.park(car);
         ParkingTicket wrongTicket = new ParkingTicket();
         //then
-        assertNotSame(originalTicket,wrongTicket);
        Exception exception = assertThrows(UnrecognizedParkingTicketException.class,()->parkingBoy.fetch(wrongTicket));
        assertEquals("Unrecognized parking ticket.",exception.getMessage());
     }
@@ -65,14 +62,11 @@ class ParkingBoyTest {
     @Test
     void should_return_no_car_when_fetching_a_car_given_no_ticket() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         //when
-        ParkingTicket parkingTicket = parkingBoy.park(null);
-        Car fetchCar = parkingBoy.fetch(parkingTicket);
         //then
-        assertNull(parkingTicket);
-//        assertEquals("Please provide your parking ticket.",exception.getMessage());
+       Exception exception = assertThrows(UnrecognizedParkingTicketException.class,()-> parkingBoy.fetch(null));
+        assertEquals("Please provide your parking ticket.",exception.getMessage());
 
     }
 
