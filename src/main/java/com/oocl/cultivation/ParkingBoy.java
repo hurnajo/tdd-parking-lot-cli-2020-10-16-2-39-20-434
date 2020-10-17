@@ -1,10 +1,9 @@
 package com.oocl.cultivation;
 
-import java.util.Objects;
-
 public class ParkingBoy {
     private final ParkingLot parkingLot;
     private String lastErrorMessage;
+    private ParkingTicket parkingTicket;
 
 
     public ParkingBoy(ParkingLot parkingLot) {
@@ -12,7 +11,10 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        return parkingLot.park(car);
+        if(!parkingLot.isParkingLotFull()){
+            return parkingLot.park(car);
+        }
+        return null;
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
@@ -20,9 +22,5 @@ public class ParkingBoy {
             throw new UnrecognizedParkingTicketException("Please provide your parking ticket.");
         }
         return parkingLot.fetch(parkingTicket);
-    }
-
-    private void ParkingLotFullMessage(Car car){
-        this.lastErrorMessage = parkingLot.isParkingLotFull(car) == true? "Not enough position." : null;
     }
 }
