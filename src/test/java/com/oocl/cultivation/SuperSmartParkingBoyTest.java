@@ -155,6 +155,7 @@ public class SuperSmartParkingBoyTest {
 
     @Test
     public void should_return_3_and_6_when_parking_given_2_parking_lot_base_on_rate_to_super_smart_parking_boy() {
+        //given
         ParkingLot parkingLot1 = new ParkingLot(10);
         ParkingLot parkinglot2 = new ParkingLot(20);
         List<ParkingLot> parkingLots = new ArrayList<>();
@@ -168,17 +169,17 @@ public class SuperSmartParkingBoyTest {
         Car car6 = new Car();
         Car car7 = new Car();
         Car car8 = new Car();
-        SuperSmartParkingBoy smartParkingBoy = new SuperSmartParkingBoy(parkingLots);
-        smartParkingBoy.park(car1);
-        smartParkingBoy.park(car2);
-        smartParkingBoy.park(car3);
-        smartParkingBoy.park(car4);
-        smartParkingBoy.park(car5);
-        smartParkingBoy.park(car1);
-        smartParkingBoy.park(car6);
-        smartParkingBoy.park(car7);
+
         //WHEN
-        smartParkingBoy.park(car8);
+        superSmartParkingBoy.park(car1);
+        superSmartParkingBoy.park(car2);
+        superSmartParkingBoy.park(car3);
+        superSmartParkingBoy.park(car4);
+        superSmartParkingBoy.park(car5);
+        superSmartParkingBoy.park(car1);
+        superSmartParkingBoy.park(car6);
+        superSmartParkingBoy.park(car7);
+        superSmartParkingBoy.park(car8);
         //THEN
         assertEquals(3, parkingLot1.getMapSize());
         assertEquals(6, parkinglot2.getMapSize());
