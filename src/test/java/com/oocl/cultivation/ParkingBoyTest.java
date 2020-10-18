@@ -25,7 +25,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_a_parking_ticket_when_parking_given_a_car_to_parking_boy() {
+    void should_return_a_parking_ticket_when_parking_given_a_car_to_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
         // when
@@ -35,7 +35,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_car_fetched_when_fetch_car_given_parking_ticket() {
+    void should_return_car_fetched_when_fetch_car_given_parking_ticket() {
         //given
         parkingLotList.add(new ParkingLot());
         ParkingTicket parkingTicket = parkingBoy.park(car);
@@ -46,7 +46,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_corresponding_cars_when_fetch_two_car_given_parking_boy_two_cars() {
+    void should_return_corresponding_cars_when_fetch_two_car_given_parking_boy_two_cars() {
         //given
         Car car = new Car();
         Car car2 = new Car();
@@ -63,17 +63,18 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_UnrecognizedParkingTicket_when_fetching_a_car_given_wrong_ticket() {
+    void should_return_UnrecognizedParkingTicket_when_fetching_a_car_given_wrong_ticket() {
         //given
         parkingLotList.add(new ParkingLot());
         //when
         ParkingTicket originalParkingTicket = parkingBoy.park(car);
         ParkingTicket wrongParkingTicket = new ParkingTicket();
         //then
-        assertNotSame(originalParkingTicket,wrongParkingTicket);
-        Exception exception = assertThrows(UnrecognizedParkingTicketException.class,()->
-                parkingBoy.fetch(wrongParkingTicket));
-        assertEquals("Unrecognized parking ticket.",exception.getMessage());
+        assertNotSame(originalParkingTicket, wrongParkingTicket);
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> {
+            parkingBoy.fetch(wrongParkingTicket);
+        });
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
     @Test
@@ -110,7 +111,7 @@ class ParkingBoyTest {
         parkingLotList.add(new ParkingLot(1));
         ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
         parkingBoy.park(car);
-         //when
+        //when
         Exception exception =
                 assertThrows(FullParkingException.class,
                         () -> parkingBoy.park(new Car()));

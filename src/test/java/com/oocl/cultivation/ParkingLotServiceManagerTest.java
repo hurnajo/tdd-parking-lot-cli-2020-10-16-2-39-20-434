@@ -1,5 +1,6 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import com.oocl.cultivation.smartParkingBoy.SmartParkingBoy;
 import com.oocl.cultivation.smartParkingBoy.SuperSmartParkingBoy;
@@ -12,17 +13,17 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLotServiceManagerTest {
-    Car car = new Car();
+    private Car car = new Car();
     private List<ParkingLot> lotForParkingBoy = new ArrayList<>();
     private List<ParkingLot> lotForSmartParkingBoy = new ArrayList<>();
     private List<ParkingLot> lotForSuperSmartParkingBoy = new ArrayList<>();
     private List<ParkingLot> lotForParkingLotManager = new ArrayList<>();
     private List<ParkingBoy> parkingBoyList = new ArrayList<>();
-    List<ParkingLot> parkingLotList = new ArrayList<>();
-    ParkingBoy parkingBoy = new ParkingBoy(lotForParkingBoy);
-    ParkingBoy smartParkingBoy = new SmartParkingBoy(lotForSmartParkingBoy);
-    ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(lotForSuperSmartParkingBoy);
-    ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(lotForParkingLotManager);
+    private List<ParkingLot> parkingLotList = new ArrayList<>();
+    private ParkingBoy parkingBoy = new ParkingBoy(lotForParkingBoy);
+    private ParkingBoy smartParkingBoy = new SmartParkingBoy(lotForSmartParkingBoy);
+    private ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(lotForSuperSmartParkingBoy);
+    private ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(lotForParkingLotManager);
 
     @Test
     void should_return_management_List_when_adding_parking_boys_given_management_List() {
@@ -64,7 +65,7 @@ public class ParkingLotServiceManagerTest {
     }
 
     @Test
-    void should_return_exception_when_fetching_car_given_wrong_ticket_to_parking_boy(){
+    void should_return_exception_when_parking_lot_manager_command_to_fetch_car_given_wrong_ticket_to_parking_boy(){
     //given
         parkingLotList.add(new ParkingLot());
         ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
@@ -76,7 +77,42 @@ public class ParkingLotServiceManagerTest {
     //when
     //then
         UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
-                ()->{parkingLotServiceManager.commandToFetch(parkingBoyList,wrongTicket);});
+                ()->{parkingLotServiceManager.commandToFetch(parkingBoy,wrongTicket);});
         assertSame("Unrecognized parking ticket.",exception.getMessage());
+    }
+
+    @Test
+    void should_return_exception_when_parking_lot_manager_command_to_fetch_car_given_used_parking_ticket_to_parking_boy(){
+    //given
+        parkingLotList.add(new ParkingLot());
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+        parkingBoy.fetch(parkingTicket);
+        parkingBoyList.add(parkingBoy);
+    //when
+    //then
+        UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
+                ()->{parkingLotServiceManager.commandToFetch(parkingBoy,parkingTicket);});
+        assertSame("Unrecognized parking ticket.",exception.getMessage());
+    }
+
+    @Test
+    void should_return_exception_when_service_manager_commands_to_park_given_parking_lot_is_at_max_capacity(){
+    //given
+        Car car1 = new Car();
+        Car car2 = new Car();
+        parkingLotList.add(new ParkingLot(1));
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
+        parkingBoy.park(car1);
+
+        List<ParkingBoy> parkingBoys = new ArrayList<>();
+        parkingBoys.add(parkingBoy);
+        parkingLotServiceManager.setManagementList(parkingBoys);
+
+        //WHEN
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                ()->{parkingLotServiceManager.commandToPark(parkingBoy,car2); });
+        //THEN
+        assertSame("Not enough position.", exception.getMessage());
     }
 }
