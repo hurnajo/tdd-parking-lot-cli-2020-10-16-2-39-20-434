@@ -12,21 +12,21 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ParkingLotServiceManagerTest {
     Car car = new Car();
-    private List<ParkingLot> parkingLot1 = new ArrayList<>();
-    private List<ParkingLot> parkingLot2 = new ArrayList<>();
-    private List<ParkingLot> parkingLot3 = new ArrayList<>();
+    private List<ParkingLot> lotForParkingBoy = new ArrayList<>();
+    private List<ParkingLot> lotForSmartParkingBoy = new ArrayList<>();
+    private List<ParkingLot> lotForSuperSmartParkingBoy = new ArrayList<>();
     private List<ParkingLot> parkingLotManager = new ArrayList<>();
-    ParkingBoy parkingBoy = new ParkingBoy(parkingLot1);
-    ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot2);
-    ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot3);
+    ParkingBoy parkingBoy = new ParkingBoy(lotForParkingBoy);
+    ParkingBoy smartParkingBoy = new SmartParkingBoy(lotForSmartParkingBoy);
+    ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(lotForSuperSmartParkingBoy);
     ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(parkingLotManager);
 
     @Test
     void should_return_management_List_when_adding_parking_boys_given_management_List() {
         //given
-        parkingLot1.add(new ParkingLot());
-        parkingLot2.add(new ParkingLot());
-        parkingLot3.add(new ParkingLot());
+        lotForParkingBoy.add(new ParkingLot());
+        lotForSmartParkingBoy.add(new ParkingLot());
+        lotForSuperSmartParkingBoy.add(new ParkingLot());
         parkingLotManager.add(new ParkingLot());
         List<ParkingBoy> parkingBoyList = Arrays.asList(parkingBoy, smartParkingBoy, superSmartParkingBoy);
         parkingLotServiceManager.setManagementList(parkingBoyList);
@@ -34,5 +34,19 @@ public class ParkingLotServiceManagerTest {
         List<ParkingBoy> managementList = parkingLotServiceManager.getManagementList();
         //then
         assertNotNull(managementList);
+    }
+
+    @Test
+    void should_return_parking_ticket_when_giving_command_given_to_parking_boy(){
+    //given
+        lotForParkingBoy.add(new ParkingLot());
+        lotForSmartParkingBoy.add(new ParkingLot());
+        lotForSuperSmartParkingBoy.add(new ParkingLot());
+        List<ParkingBoy> parkingBoyList = Arrays.asList(parkingBoy, smartParkingBoy, superSmartParkingBoy);
+        parkingLotServiceManager.setManagementList(parkingBoyList);
+    //when
+        ParkingTicket parkingTicket = parkingLotServiceManager.commandToPark(parkingBoy, car);
+    //then
+        assertNotNull(parkingTicket);
     }
 }

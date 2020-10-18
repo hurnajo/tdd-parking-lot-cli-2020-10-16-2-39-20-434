@@ -10,11 +10,17 @@ public class ParkingLotServiceManager extends ParkingBoy {
         super(parkingLotList);
     }
 
+
     public void setManagementList(List<ParkingBoy> parkingBoys){
         this.managementList=parkingBoys;
     }
 
     public List<ParkingBoy> getManagementList() {
         return managementList;
+    }
+
+
+    public ParkingTicket commandToPark(ParkingBoy parkingBoy, Car car) {
+        return null;
     }
 }
