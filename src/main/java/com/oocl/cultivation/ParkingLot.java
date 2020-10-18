@@ -14,13 +14,13 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
-    ParkingTicket park(Car car) {
+    ParkingTicket parkingTicket(Car car) {
         ParkingTicket parkingTicket = new ParkingTicket();
         ticketAndCarMap.put(parkingTicket, car);
         return parkingTicket;
     }
 
-    Car fetch(ParkingTicket parkingTicket) {
+    Car fetchCar(ParkingTicket parkingTicket) {
         Car carParked = ticketAndCarMap.get(parkingTicket);
         ticketAndCarMap.remove(parkingTicket);
         return carParked;

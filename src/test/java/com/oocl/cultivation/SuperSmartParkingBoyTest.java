@@ -46,7 +46,7 @@ public class SuperSmartParkingBoyTest {
         ParkingTicket ticket = superSmartParkingBoy.park(car);
 
         //when
-        Car fetchedCar = superSmartParkingBoy.fetch(ticket);
+        Car fetchedCar = superSmartParkingBoy.fetchCar(ticket);
 
         //then
         assertSame(car, fetchedCar);
@@ -62,8 +62,8 @@ public class SuperSmartParkingBoyTest {
         ParkingTicket parkingTicket2 = superSmartParkingBoy.park(car2);
 
         //WHEN
-        Car fetchedCar1 = superSmartParkingBoy.fetch(parkingTicket1);
-        Car fetchedCar2 = superSmartParkingBoy.fetch(parkingTicket2);
+        Car fetchedCar1 = superSmartParkingBoy.fetchCar(parkingTicket1);
+        Car fetchedCar2 = superSmartParkingBoy.fetchCar(parkingTicket2);
 
         //THEN
         assertSame(car1, fetchedCar1);
@@ -80,7 +80,7 @@ public class SuperSmartParkingBoyTest {
         //WHEN
         UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
                 () -> {
-                    superSmartParkingBoy.fetch(wrongTicket);
+                    superSmartParkingBoy.fetchCar(wrongTicket);
                 });
         //THEN
         assertSame("Unrecognized parking ticket.", exception.getMessage());
@@ -96,7 +96,7 @@ public class SuperSmartParkingBoyTest {
         //WHEN
         NullParkingTicketException exception = assertThrows(NullParkingTicketException.class,
                 () -> {
-                    superSmartParkingBoy.fetch(null);
+                    superSmartParkingBoy.fetchCar(null);
                 });
         //THEN
         assertSame("Please provide your parking ticket.", exception.getMessage());
@@ -112,7 +112,7 @@ public class SuperSmartParkingBoyTest {
         //WHEN
         NullParkingTicketException exception = assertThrows(NullParkingTicketException.class,
                 () -> {
-                    superSmartParkingBoy.fetch(null);
+                    superSmartParkingBoy.fetchCar(null);
                 });
         //THEN
         assertSame("Please provide your parking ticket.", exception.getMessage());
@@ -124,12 +124,12 @@ public class SuperSmartParkingBoyTest {
 
         parkingLotList.add(new ParkingLot());
         ParkingTicket ticket = superSmartParkingBoy.park(car);
-        superSmartParkingBoy.fetch(ticket);
+        superSmartParkingBoy.fetchCar(ticket);
 
         //WHEN
         UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
                 () -> {
-                    superSmartParkingBoy.fetch(ticket);
+                    superSmartParkingBoy.fetchCar(ticket);
                 });
         //THEN
         assertSame("Unrecognized parking ticket.", exception.getMessage());

@@ -37,7 +37,7 @@ public class SmartParkingBoyTest {
         parkingLotList.add(new ParkingLot());
         ParkingTicket parkingTicket = smartParkingBoy.park(car);
         //when
-        Car fetchedCar = smartParkingBoy.fetch(parkingTicket);
+        Car fetchedCar = smartParkingBoy.fetchCar(parkingTicket);
         //then
         assertSame(car, fetchedCar);
     }
@@ -51,8 +51,8 @@ public class SmartParkingBoyTest {
         ParkingTicket parkingTicket1 = smartParkingBoy.park(car1);
         ParkingTicket parkingTicket2 = smartParkingBoy.park(car2);
         //when
-        Car fetchedCar1 = smartParkingBoy.fetch(parkingTicket1);
-        Car fetchedCar2 = smartParkingBoy.fetch(parkingTicket2);
+        Car fetchedCar1 = smartParkingBoy.fetchCar(parkingTicket1);
+        Car fetchedCar2 = smartParkingBoy.fetchCar(parkingTicket2);
         //then
         assertSame(car1, fetchedCar1);
         assertSame(car2, fetchedCar2);
@@ -67,7 +67,7 @@ public class SmartParkingBoyTest {
         //when
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> {
-                    smartParkingBoy.fetch(wrongTicket);
+                    smartParkingBoy.fetchCar(wrongTicket);
                 });
         //then
         assertSame("Unrecognized parking ticket.", exception.getMessage());
@@ -81,7 +81,7 @@ public class SmartParkingBoyTest {
         //when
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> {
-                    smartParkingBoy.fetch(null);
+                    smartParkingBoy.fetchCar(null);
                 });
         //then
         assertSame("Please provide your parking ticket.", exception.getMessage());
@@ -95,7 +95,7 @@ public class SmartParkingBoyTest {
         //when
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> {
-                    smartParkingBoy.fetch(null);
+                    smartParkingBoy.fetchCar(null);
                 });
         //then
         assertSame("Please provide your parking ticket.", exception.getMessage());
@@ -106,11 +106,11 @@ public class SmartParkingBoyTest {
         //given
         parkingLotList.add(new ParkingLot());
         ParkingTicket ticket = smartParkingBoy.park(car);
-        smartParkingBoy.fetch(ticket);
+        smartParkingBoy.fetchCar(ticket);
         //when
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> {
-                    smartParkingBoy.fetch(ticket);
+                    smartParkingBoy.fetchCar(ticket);
                 });
         //then
         assertSame("Unrecognized parking ticket.", exception.getMessage());

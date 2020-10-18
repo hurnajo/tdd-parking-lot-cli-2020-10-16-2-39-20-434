@@ -1,6 +1,5 @@
 package com.oocl.cultivation;
 
-import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import com.oocl.cultivation.smartParkingBoy.SmartParkingBoy;
 import com.oocl.cultivation.smartParkingBoy.SuperSmartParkingBoy;
@@ -59,7 +58,7 @@ public class ParkingLotServiceManagerTest {
         lotForParkingLotManager.add(new ParkingLot());
         ParkingTicket parkingTicket = parkingLotServiceManager.park(car);
     //when
-        Car fetchCar = parkingLotServiceManager.fetch(parkingTicket);
+        Car fetchCar = parkingLotServiceManager.fetchCar(parkingTicket);
     //then
         assertSame(car,fetchCar);
     }
@@ -87,7 +86,7 @@ public class ParkingLotServiceManagerTest {
         parkingLotList.add(new ParkingLot());
         ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
         ParkingTicket parkingTicket = parkingBoy.park(car);
-        parkingBoy.fetch(parkingTicket);
+        parkingBoy.fetchCar(parkingTicket);
         parkingBoyList.add(parkingBoy);
     //when
     //then

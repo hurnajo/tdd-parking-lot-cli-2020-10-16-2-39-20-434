@@ -40,7 +40,7 @@ class ParkingBoyTest {
         parkingLotList.add(new ParkingLot());
         ParkingTicket parkingTicket = parkingBoy.park(car);
         // when
-        Car fetchedCar = parkingBoy.fetch(parkingTicket);
+        Car fetchedCar = parkingBoy.fetchCar(parkingTicket);
         //then
         assertSame(car, fetchedCar);
     }
@@ -54,8 +54,8 @@ class ParkingBoyTest {
         ParkingTicket parkingTicket = parkingBoy.park(car);
         ParkingTicket parkingTicket2 = parkingBoy.park(car2);
         //when
-        Car fetchedCar = parkingBoy.fetch(parkingTicket);
-        Car fetchedCar2 = parkingBoy.fetch(parkingTicket2);
+        Car fetchedCar = parkingBoy.fetchCar(parkingTicket);
+        Car fetchedCar2 = parkingBoy.fetchCar(parkingTicket2);
         //then
         assertEquals(car, fetchedCar);
         assertEquals(car2, fetchedCar2);
@@ -72,7 +72,7 @@ class ParkingBoyTest {
         //then
         assertNotSame(originalParkingTicket, wrongParkingTicket);
         Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> {
-            parkingBoy.fetch(wrongParkingTicket);
+            parkingBoy.fetchCar(wrongParkingTicket);
         });
         assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
@@ -83,10 +83,10 @@ class ParkingBoyTest {
         parkingLotList.add(new ParkingLot());
         ParkingTicket validTicket = parkingBoy.park(car);
         // when
-        Car returnCar = parkingBoy.fetch(validTicket);
+        Car returnCar = parkingBoy.fetchCar(validTicket);
         //then
         assertThrows(UnrecognizedParkingTicketException.class, () -> {
-            parkingBoy.fetch(validTicket);
+            parkingBoy.fetchCar(validTicket);
         });
         assertSame(car, returnCar);
     }
@@ -97,10 +97,10 @@ class ParkingBoyTest {
         parkingLotList.add(new ParkingLot());
         ParkingTicket parkingTicket = parkingBoy.park(car);
         //when
-        Car returnCar = parkingBoy.fetch(parkingTicket);
+        Car returnCar = parkingBoy.fetchCar(parkingTicket);
         //then
         Exception exception = assertThrows(NullParkingTicketException.class,
-                () -> parkingBoy.fetch(null));
+                () -> parkingBoy.fetchCar(null));
         assertEquals("Please provide your parking ticket.", exception.getMessage());
         assertSame(car, returnCar);
     }

@@ -15,7 +15,7 @@ public class ParkingLotServiceManager extends ParkingBoy {
     }
 
     public Car commandToFetch(ParkingBoy parkingBoy, ParkingTicket parkingTicket) {
-        return parkingBoy.fetch(parkingTicket);
+        return parkingBoy.fetchCar(parkingTicket);
     }
 
     public void setManagementList(List<ParkingBoy> parkingBoys) {
