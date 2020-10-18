@@ -21,6 +21,6 @@ public class ParkingLotServiceManager extends ParkingBoy {
 
 
     public ParkingTicket commandToPark(ParkingBoy parkingBoy, Car car) {
-        return null;
+        return parkingBoy.park(car);
     }
 }
