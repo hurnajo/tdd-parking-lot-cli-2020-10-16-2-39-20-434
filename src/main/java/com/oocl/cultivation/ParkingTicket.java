@@ -1,9 +1,10 @@
 package com.oocl.cultivation;
 
 public class ParkingTicket extends ParkingLot {
-    ParkingTicket(Car car){
+    ParkingTicket(Car car) {
 
     }
+
     public ParkingTicket() {
     }
 }
