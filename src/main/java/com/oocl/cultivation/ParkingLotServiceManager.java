@@ -23,4 +23,8 @@ public class ParkingLotServiceManager extends ParkingBoy {
     public ParkingTicket commandToPark(ParkingBoy parkingBoy, Car car) {
         return parkingBoy.park(car);
     }
+
+    public Car commandToFetch(ParkingBoy parkingBoy, ParkingTicket parkingTicket) {
+        return null;
+    }
 }

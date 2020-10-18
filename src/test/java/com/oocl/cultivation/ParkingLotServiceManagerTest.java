@@ -1,5 +1,6 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import com.oocl.cultivation.smartParkingBoy.SmartParkingBoy;
 import com.oocl.cultivation.smartParkingBoy.SuperSmartParkingBoy;
 import org.junit.jupiter.api.Test;
@@ -8,8 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLotServiceManagerTest {
     Car car = new Car();
@@ -17,6 +17,8 @@ public class ParkingLotServiceManagerTest {
     private List<ParkingLot> lotForSmartParkingBoy = new ArrayList<>();
     private List<ParkingLot> lotForSuperSmartParkingBoy = new ArrayList<>();
     private List<ParkingLot> lotForParkingLotManager = new ArrayList<>();
+    private List<ParkingBoy> parkingBoyList = new ArrayList<>();
+    List<ParkingLot> parkingLotList = new ArrayList<>();
     ParkingBoy parkingBoy = new ParkingBoy(lotForParkingBoy);
     ParkingBoy smartParkingBoy = new SmartParkingBoy(lotForSmartParkingBoy);
     ParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(lotForSuperSmartParkingBoy);
@@ -43,7 +45,6 @@ public class ParkingLotServiceManagerTest {
         lotForParkingBoy.add(new ParkingLot());
         lotForSmartParkingBoy.add(new ParkingLot());
         lotForSuperSmartParkingBoy.add(new ParkingLot());
-        List<ParkingBoy> parkingBoyList = Arrays.asList(parkingBoy, smartParkingBoy, superSmartParkingBoy);
         parkingLotServiceManager.setManagementList(parkingBoyList);
     //when
         ParkingTicket parkingTicket = parkingLotServiceManager.commandToPark(parkingBoy, car);
@@ -60,5 +61,22 @@ public class ParkingLotServiceManagerTest {
         Car fetchCar = parkingLotServiceManager.fetch(parkingTicket);
     //then
         assertSame(car,fetchCar);
+    }
+
+    @Test
+    void should_return_exception_when_fetching_car_given_wrong_ticket_to_parking_boy(){
+    //given
+        parkingLotList.add(new ParkingLot());
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
+        parkingBoy.park(car);
+        ParkingTicket wrongTicket = new ParkingTicket();
+        parkingBoyList.add(parkingBoy);
+        parkingLotServiceManager.setManagementList(parkingBoyList);
+
+    //when
+    //then
+        UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
+                ()->{parkingLotServiceManager.commandToFetch(parkingBoyList,wrongTicket);});
+        assertSame("Unrecognized parking ticket.",exception.getMessage());
     }
 }
