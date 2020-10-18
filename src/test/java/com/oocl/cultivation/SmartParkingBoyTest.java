@@ -22,7 +22,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_a_parking_ticket_when_parking_given_a_car_to_smart_parking_boy() {
+    public void should_return_parking_ticket_when_parking_given_a_car_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
         // when
@@ -32,8 +32,8 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_a_car_when_fetching_given_a_parking_ticket_to_smart_parking_boy() {
-        //GIVEN
+    public void should_return_car_when_fetching_given_a_parking_ticket_to_smart_parking_boy() {
+        //given
         parkingLotList.add(new ParkingLot());
         ParkingTicket parkingTicket = smartParkingBoy.park(car);
         //when
@@ -44,7 +44,7 @@ public class SmartParkingBoyTest {
 
     @Test
     public void should_return_correct_car_when_fetching_given_multiple_parking_ticket_to_smart_parking_boy() {
-        //GIVEN
+        //given
         Car car1 = new Car();
         Car car2 = new Car();
         parkingLotList.add(new ParkingLot());
@@ -59,8 +59,8 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_given_wrong_parking_ticket_to_parking_boy() {
-        //GIVEN
+    public void should_return_exception_when_fetching_given_wrong_parking_ticket_to_smart_parking_boy() {
+        //given
         parkingLotList.add(new ParkingLot());
         smartParkingBoy.park(car);
         ParkingTicket wrongTicket = new ParkingTicket();
@@ -74,8 +74,8 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_given_no_ticket_to_parking_boy() {
-        //GIVEN
+    public void should_return_exception_when_fetching_given_no_ticket_to_smart_parking_boy() {
+        //given
         parkingLotList.add(new ParkingLot());
         smartParkingBoy.park(car);
         //when
@@ -88,8 +88,8 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_given_empty_ticket_to_parking_boy() {
-        //GIVEN
+    public void should_return_exception_when_fetching_given_empty_ticket_to_smart_parking_boy() {
+        //given
         parkingLotList.add(new ParkingLot());
         smartParkingBoy.park(car);
         //when
@@ -102,8 +102,8 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_given_used_parking_ticket_to_parking_boy() {
-        //GIVEN
+    public void should_return_exception_when_fetching_given_used_parking_ticket_to_smart_parking_boy() {
+        //given
         parkingLotList.add(new ParkingLot());
         ParkingTicket ticket = smartParkingBoy.park(car);
         smartParkingBoy.fetch(ticket);
@@ -117,8 +117,8 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_parking_given_car_while_parking_lot_is_at_max_capacity_to_parking_boy() {
-        //GIVEN
+    public void should_return_exception_when_parking_given_parking_lot_is_full_to_smart_parking_boy() {
+        //given
         Car car1 = new Car();
         Car car2 = new Car();
         parkingLotList.add(new ParkingLot(1));
@@ -133,7 +133,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_car_ticket_when_parking_given_car_while_parking_lot_1_is_at_max_capacity_to_parking_boy() {
+    public void should_return_car_ticket_when_parking_given_parking_lot_1_is_full_to_smart_parking_boy() {
         //given
         ParkingLot parkingLot1 = new ParkingLot(2);
         ParkingLot parkinglot2 = new ParkingLot(2);
