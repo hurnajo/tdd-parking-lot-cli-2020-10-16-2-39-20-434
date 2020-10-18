@@ -1,4 +1,4 @@
-package com.oocl.cultivation.parkingBoy;
+package com.oocl.cultivation.smartParkingBoy;
 
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;

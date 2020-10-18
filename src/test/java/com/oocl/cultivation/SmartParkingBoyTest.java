@@ -1,6 +1,6 @@
 package com.oocl.cultivation;
 
-import com.oocl.cultivation.parkingBoy.SmartParkingBoy;
+import com.oocl.cultivation.smartParkingBoy.SmartParkingBoy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

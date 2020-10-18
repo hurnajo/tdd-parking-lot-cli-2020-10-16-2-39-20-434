@@ -3,14 +3,12 @@ package com.oocl.cultivation;
 import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.NullParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
-import com.oocl.cultivation.parkingBoy.SuperSmartParkingBoy;
+import com.oocl.cultivation.smartParkingBoy.SuperSmartParkingBoy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
