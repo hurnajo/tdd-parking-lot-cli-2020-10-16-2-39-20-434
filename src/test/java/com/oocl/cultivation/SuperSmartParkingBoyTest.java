@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -160,9 +161,7 @@ public class SuperSmartParkingBoyTest {
         parkingLotList.add(parkingLot1);
         parkingLotList.add(parkinglot2);
         //WHEN
-        for(int i = 0;i<=8;i++){
-            superSmartParkingBoy.park(new Car());
-        }
+        IntStream.rangeClosed(0,8).forEach(car->superSmartParkingBoy.park(new Car()));
         //THEN
         assertEquals(3, parkingLot1.getMapSize());
         assertEquals(6, parkinglot2.getMapSize());
