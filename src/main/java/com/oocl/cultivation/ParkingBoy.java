@@ -9,7 +9,7 @@ import java.util.List;
 import static com.oocl.cultivation.constant.Constant.*;
 
 public class ParkingBoy {
-    public List<ParkingLot> parkingLotList;
+    protected List<ParkingLot> parkingLotList;
 
     public ParkingBoy(List<ParkingLot> parkingLotList) {
         this.parkingLotList = parkingLotList;
