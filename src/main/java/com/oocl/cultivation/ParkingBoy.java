@@ -6,30 +6,29 @@ import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
 import java.util.List;
 
+import static com.oocl.cultivation.constant.Constant.*;
+
 public class ParkingBoy {
     public List<ParkingLot> parkingLotList;
-    public static final String PROVIDE_TICKET = "Please provide your parking ticket.";
-    public static final String UNRECOGNIZE_TICKET = "Unrecognized parking ticket.";
-    public static final String NOT_ENOUGH_SPACE = "Not enough position.";
 
     public ParkingBoy(List<ParkingLot> parkingLotList) {
         this.parkingLotList = parkingLotList;
     }
 
-    public ParkingTicket park(Car car) {
-        ParkingLot parkingLot = getParkinglot();
-        return parkingLot.parkingTicket(car);
+    public ParkingTicket parkVehicle(Vehicle vehicle) {
+        ParkingLot parkingLot = findParkingLot();
+        return parkingLot.parkingTicket(vehicle);
     }
 
-    public Car fetchCar(ParkingTicket parkingTicket) {
-        Car fetchCar = new Car();
+    public Vehicle fetchVehicle(ParkingTicket parkingTicket) {
+        Vehicle fetchVehicle = new Vehicle();
         if (checkTicket(parkingTicket)) {
             for (ParkingLot parkingLot : parkingLotList) {
-                fetchCar = parkingLot.fetchCar(parkingTicket);
+                fetchVehicle = parkingLot.fetchCar(parkingTicket);
             }
-            return fetchCar;
+            return fetchVehicle;
         } else {
-            throw new UnrecognizedParkingTicketException(UNRECOGNIZE_TICKET);
+            throw new UnrecognizedParkingTicketException(UNRECOGNIZED_TICKET);
         }
     }
 
@@ -41,9 +40,9 @@ public class ParkingBoy {
                 parkingLots.getTicketAndCarMap().containsKey(parkingTicket));
     }
 
-    public ParkingLot getParkinglot() {
-        for(ParkingLot parkingLot: parkingLotList){
-            if(parkingLot.getTicketAndCarMap().size()!=parkingLot.getParkingLotCapacity()){
+    public ParkingLot findParkingLot() {
+        for (ParkingLot parkingLot : parkingLotList) {
+            if (parkingLot.getTicketAndCarMap().size() != parkingLot.getParkingLotCapacity()) {
                 return parkingLot;
             }
         }

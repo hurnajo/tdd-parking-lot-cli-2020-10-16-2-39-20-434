@@ -1,22 +1,27 @@
 package com.oocl.cultivation;
 
-import com.oocl.cultivation.smartParkingBoy.SmartParkingBoy;
+import com.oocl.cultivation.exception.FullParkingException;
+import com.oocl.cultivation.exception.NullParkingTicketException;
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
+import com.oocl.cultivation.smartparkingboy.SmartParkingBoy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.oocl.cultivation.constant.Constant.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartParkingBoyTest {
-    private Car car;
+    //TODO constant put here
+    private Vehicle vehicle;
     private List<ParkingLot> parkingLotList;
     private SmartParkingBoy smartParkingBoy;
 
     @BeforeEach
     void setUp() {
-        car = new Car();
+        vehicle = new Vehicle();
         parkingLotList = new ArrayList<>();
         smartParkingBoy = new SmartParkingBoy(parkingLotList);
     }
@@ -26,7 +31,7 @@ public class SmartParkingBoyTest {
         //given
         parkingLotList.add(new ParkingLot());
         // when
-        ParkingTicket parkingTicket = smartParkingBoy.park(car);
+        ParkingTicket parkingTicket = smartParkingBoy.parkVehicle(vehicle);
         //then
         assertNotNull(parkingTicket);
     }
@@ -35,101 +40,101 @@ public class SmartParkingBoyTest {
     public void should_return_car_when_fetching_given_a_parking_ticket_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
-        ParkingTicket parkingTicket = smartParkingBoy.park(car);
+        ParkingTicket parkingTicket = smartParkingBoy.parkVehicle(vehicle);
         //when
-        Car fetchedCar = smartParkingBoy.fetchCar(parkingTicket);
+        Vehicle fetchedVehicle = smartParkingBoy.fetchVehicle(parkingTicket);
         //then
-        assertSame(car, fetchedCar);
+        assertSame(vehicle, fetchedVehicle);
     }
 
     @Test
     public void should_return_correct_car_when_fetching_given_multiple_parking_ticket_to_smart_parking_boy() {
         //given
-        Car car1 = new Car();
-        Car car2 = new Car();
+        Vehicle vehicle1 = new Vehicle();
+        Vehicle vehicle2 = new Vehicle();
         parkingLotList.add(new ParkingLot());
-        ParkingTicket parkingTicket1 = smartParkingBoy.park(car1);
-        ParkingTicket parkingTicket2 = smartParkingBoy.park(car2);
+        ParkingTicket parkingTicket1 = smartParkingBoy.parkVehicle(vehicle1);
+        ParkingTicket parkingTicket2 = smartParkingBoy.parkVehicle(vehicle2);
         //when
-        Car fetchedCar1 = smartParkingBoy.fetchCar(parkingTicket1);
-        Car fetchedCar2 = smartParkingBoy.fetchCar(parkingTicket2);
+        Vehicle fetchedVehicle1 = smartParkingBoy.fetchVehicle(parkingTicket1);
+        Vehicle fetchedVehicle2 = smartParkingBoy.fetchVehicle(parkingTicket2);
         //then
-        assertSame(car1, fetchedCar1);
-        assertSame(car2, fetchedCar2);
+        assertSame(vehicle1, fetchedVehicle1);
+        assertSame(vehicle2, fetchedVehicle2);
     }
 
     @Test
     public void should_return_exception_when_fetching_given_wrong_parking_ticket_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
-        smartParkingBoy.park(car);
+        smartParkingBoy.parkVehicle(vehicle);
         ParkingTicket wrongTicket = new ParkingTicket();
         //when
-        RuntimeException exception = assertThrows(RuntimeException.class,
+        UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
                 () -> {
-                    smartParkingBoy.fetchCar(wrongTicket);
+                    smartParkingBoy.fetchVehicle(wrongTicket);
                 });
         //then
-        assertSame("Unrecognized parking ticket.", exception.getMessage());
+        assertSame(UNRECOGNIZED_TICKET, exception.getMessage());
     }
 
     @Test
     public void should_return_exception_when_fetching_given_no_ticket_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
-        smartParkingBoy.park(car);
+        smartParkingBoy.parkVehicle(vehicle);
         //when
-        RuntimeException exception = assertThrows(RuntimeException.class,
+        NullParkingTicketException exception = assertThrows(NullParkingTicketException.class,
                 () -> {
-                    smartParkingBoy.fetchCar(null);
+                    smartParkingBoy.fetchVehicle(null);
                 });
         //then
-        assertSame("Please provide your parking ticket.", exception.getMessage());
+        assertSame(PROVIDE_TICKET, exception.getMessage());
     }
 
     @Test
     public void should_return_exception_when_fetching_given_empty_ticket_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
-        smartParkingBoy.park(car);
+        smartParkingBoy.parkVehicle(vehicle);
         //when
-        RuntimeException exception = assertThrows(RuntimeException.class,
+        NullParkingTicketException exception = assertThrows(NullParkingTicketException.class,
                 () -> {
-                    smartParkingBoy.fetchCar(null);
+                    smartParkingBoy.fetchVehicle(null);
                 });
         //then
-        assertSame("Please provide your parking ticket.", exception.getMessage());
+        assertSame(PROVIDE_TICKET, exception.getMessage());
     }
 
     @Test
     public void should_return_exception_when_fetching_given_used_parking_ticket_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
-        ParkingTicket ticket = smartParkingBoy.park(car);
-        smartParkingBoy.fetchCar(ticket);
+        ParkingTicket ticket = smartParkingBoy.parkVehicle(vehicle);
+        smartParkingBoy.fetchVehicle(ticket);
         //when
-        RuntimeException exception = assertThrows(RuntimeException.class,
+        UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
                 () -> {
-                    smartParkingBoy.fetchCar(ticket);
+                    smartParkingBoy.fetchVehicle(ticket);
                 });
         //then
-        assertSame("Unrecognized parking ticket.", exception.getMessage());
+        assertSame(UNRECOGNIZED_TICKET, exception.getMessage());
     }
 
     @Test
     public void should_return_exception_when_parking_given_parking_lot_is_full_to_smart_parking_boy() {
         //given
-        Car car1 = new Car();
-        Car car2 = new Car();
+        Vehicle vehicle1 = new Vehicle();
+        Vehicle vehicle2 = new Vehicle();
         parkingLotList.add(new ParkingLot(1));
-        smartParkingBoy.park(car1);
+        smartParkingBoy.parkVehicle(vehicle1);
         //when
-        RuntimeException exception = assertThrows(RuntimeException.class,
+        FullParkingException exception = assertThrows(FullParkingException.class,
                 () -> {
-                    smartParkingBoy.park(car2);
+                    smartParkingBoy.parkVehicle(vehicle2);
                 });
         //then
-        assertSame("Not enough position.", exception.getMessage());
+        assertSame(NOT_ENOUGH_SPACE, exception.getMessage());
     }
 
     @Test
@@ -139,11 +144,11 @@ public class SmartParkingBoyTest {
         ParkingLot parkinglot2 = new ParkingLot(2);
         parkingLotList.add(parkingLot1);
         parkingLotList.add(parkinglot2);
-        Car car1 = new Car();
-        Car car2 = new Car();
-        smartParkingBoy.park(car1);
+        Vehicle vehicle1 = new Vehicle();
+        Vehicle vehicle2 = new Vehicle();
+        smartParkingBoy.parkVehicle(vehicle1);
         //when
-        smartParkingBoy.park(car2);
+        smartParkingBoy.parkVehicle(vehicle2);
         //then
         assertEquals(1, parkinglot2.getTicketAndCarMap().size());
     }

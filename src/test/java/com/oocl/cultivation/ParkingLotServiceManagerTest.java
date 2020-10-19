@@ -1,18 +1,21 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
-import com.oocl.cultivation.smartParkingBoy.SmartParkingBoy;
-import com.oocl.cultivation.smartParkingBoy.SuperSmartParkingBoy;
+import com.oocl.cultivation.smartparkingboy.SmartParkingBoy;
+import com.oocl.cultivation.smartparkingboy.SuperSmartParkingBoy;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.oocl.cultivation.constant.Constant.NOT_ENOUGH_SPACE;
+import static com.oocl.cultivation.constant.Constant.UNRECOGNIZED_TICKET;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLotServiceManagerTest {
-    private Car car = new Car();
+    private Vehicle vehicle = new Vehicle();
     private List<ParkingLot> lotForParkingBoy = new ArrayList<>();
     private List<ParkingLot> lotForSmartParkingBoy = new ArrayList<>();
     private List<ParkingLot> lotForSuperSmartParkingBoy = new ArrayList<>();
@@ -47,7 +50,7 @@ public class ParkingLotServiceManagerTest {
         lotForSuperSmartParkingBoy.add(new ParkingLot());
         parkingLotServiceManager.setManagementList(parkingBoyList);
     //when
-        ParkingTicket parkingTicket = parkingLotServiceManager.commandToPark(parkingBoy, car);
+        ParkingTicket parkingTicket = parkingLotServiceManager.commandToPark(parkingBoy, vehicle);
     //then
         assertNotNull(parkingTicket);
     }
@@ -56,11 +59,11 @@ public class ParkingLotServiceManagerTest {
     void should_return_car_when_fetching_given_parking_ticket_to_parking_lot_service_manager(){
     //given
         lotForParkingLotManager.add(new ParkingLot());
-        ParkingTicket parkingTicket = parkingLotServiceManager.park(car);
+        ParkingTicket parkingTicket = parkingLotServiceManager.parkVehicle(vehicle);
     //when
-        Car fetchCar = parkingLotServiceManager.fetchCar(parkingTicket);
+        Vehicle fetchVehicle = parkingLotServiceManager.fetchVehicle(parkingTicket);
     //then
-        assertSame(car,fetchCar);
+        assertSame(vehicle, fetchVehicle);
     }
 
     @Test
@@ -68,7 +71,7 @@ public class ParkingLotServiceManagerTest {
     //given
         parkingLotList.add(new ParkingLot());
         ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
-        parkingBoy.park(car);
+        parkingBoy.parkVehicle(vehicle);
         ParkingTicket wrongTicket = new ParkingTicket();
         parkingBoyList.add(parkingBoy);
         parkingLotServiceManager.setManagementList(parkingBoyList);
@@ -77,7 +80,7 @@ public class ParkingLotServiceManagerTest {
     //then
         UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
                 ()->{parkingLotServiceManager.commandToFetch(parkingBoy,wrongTicket);});
-        assertSame("Unrecognized parking ticket.",exception.getMessage());
+        assertSame(UNRECOGNIZED_TICKET,exception.getMessage());
     }
 
     @Test
@@ -85,33 +88,33 @@ public class ParkingLotServiceManagerTest {
     //given
         parkingLotList.add(new ParkingLot());
         ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
-        ParkingTicket parkingTicket = parkingBoy.park(car);
-        parkingBoy.fetchCar(parkingTicket);
+        ParkingTicket parkingTicket = parkingBoy.parkVehicle(vehicle);
+        parkingBoy.fetchVehicle(parkingTicket);
         parkingBoyList.add(parkingBoy);
     //when
     //then
         UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
                 ()->{parkingLotServiceManager.commandToFetch(parkingBoy,parkingTicket);});
-        assertSame("Unrecognized parking ticket.",exception.getMessage());
+        assertSame(UNRECOGNIZED_TICKET,exception.getMessage());
     }
 
     @Test
     void should_return_exception_when_service_manager_commands_to_park_given_parking_lot_is_at_max_capacity(){
     //given
-        Car car1 = new Car();
-        Car car2 = new Car();
+        Vehicle vehicle1 = new Vehicle();
+        Vehicle vehicle2 = new Vehicle();
         parkingLotList.add(new ParkingLot(1));
         ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
-        parkingBoy.park(car1);
+        parkingBoy.parkVehicle(vehicle1);
 
         List<ParkingBoy> parkingBoys = new ArrayList<>();
         parkingBoys.add(parkingBoy);
         parkingLotServiceManager.setManagementList(parkingBoys);
 
         //WHEN
-        RuntimeException exception = assertThrows(RuntimeException.class,
-                ()->{parkingLotServiceManager.commandToPark(parkingBoy,car2); });
+        FullParkingException exception = assertThrows(FullParkingException.class,
+                ()->{parkingLotServiceManager.commandToPark(parkingBoy, vehicle2); });
         //THEN
-        assertSame("Not enough position.", exception.getMessage());
+        assertSame(NOT_ENOUGH_SPACE, exception.getMessage());
     }
 }

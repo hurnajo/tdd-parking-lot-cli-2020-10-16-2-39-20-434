@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ParkingLot {
     private int capacity = 10;
-    private ConcurrentHashMap<ParkingTicket, Car> ticketAndCarMap = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<ParkingTicket, Vehicle> ticketAndCarMap = new ConcurrentHashMap<>();
 
     public ParkingLot() {
     }
@@ -14,19 +14,19 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
-    ParkingTicket parkingTicket(Car car) {
+    ParkingTicket parkingTicket(Vehicle vehicle) {
         ParkingTicket parkingTicket = new ParkingTicket();
-        ticketAndCarMap.put(parkingTicket, car);
+        ticketAndCarMap.put(parkingTicket, vehicle);
         return parkingTicket;
     }
 
-    Car fetchCar(ParkingTicket parkingTicket) {
-        Car carParked = ticketAndCarMap.get(parkingTicket);
+    Vehicle fetchCar(ParkingTicket parkingTicket) {
+        Vehicle vehicleParked = ticketAndCarMap.get(parkingTicket);
         ticketAndCarMap.remove(parkingTicket);
-        return carParked;
+        return vehicleParked;
     }
 
-    Map<ParkingTicket, Car> getTicketAndCarMap() {
+    Map<ParkingTicket, Vehicle> getTicketAndCarMap() {
         return ticketAndCarMap;
     }
 

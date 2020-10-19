@@ -10,12 +10,13 @@ public class ParkingLotServiceManager extends ParkingBoy {
         super(parkingLotList);
     }
 
-    public ParkingTicket commandToPark(ParkingBoy parkingBoy, Car car) {
-        return parkingBoy.park(car);
+
+    public ParkingTicket commandToPark(ParkingBoy parkingBoy, Vehicle vehicle) {
+        return parkingBoy.parkVehicle(vehicle);
     }
 
-    public Car commandToFetch(ParkingBoy parkingBoy, ParkingTicket parkingTicket) {
-        return parkingBoy.fetchCar(parkingTicket);
+    public Vehicle commandToFetch(ParkingBoy parkingBoy, ParkingTicket parkingTicket) {
+        return parkingBoy.fetchVehicle(parkingTicket);
     }
 
     public void setManagementList(List<ParkingBoy> parkingBoys) {
