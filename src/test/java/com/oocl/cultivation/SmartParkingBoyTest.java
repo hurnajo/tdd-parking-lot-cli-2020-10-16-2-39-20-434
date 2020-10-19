@@ -13,7 +13,7 @@ import java.util.List;
 import static com.oocl.cultivation.constant.Constant.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SmartParkingBoyTest {
+class SmartParkingBoyTest {
     //TODO constant put here
     private Vehicle vehicle;
     private List<ParkingLot> parkingLotList;
@@ -27,7 +27,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_parking_ticket_when_parking_given_a_car_to_smart_parking_boy() {
+    void should_return_parking_ticket_when_parking_given_a_car_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
         // when
@@ -37,7 +37,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_car_when_fetching_given_a_parking_ticket_to_smart_parking_boy() {
+    void should_return_car_when_fetching_given_a_parking_ticket_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
         ParkingTicket parkingTicket = smartParkingBoy.parkVehicle(vehicle);
@@ -48,7 +48,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_correct_car_when_fetching_given_multiple_parking_ticket_to_smart_parking_boy() {
+    void should_return_correct_car_when_fetching_given_multiple_parking_ticket_to_smart_parking_boy() {
         //given
         Vehicle vehicle1 = new Vehicle();
         Vehicle vehicle2 = new Vehicle();
@@ -64,7 +64,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_given_wrong_parking_ticket_to_smart_parking_boy() {
+    void should_return_exception_when_fetching_given_wrong_parking_ticket_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
         smartParkingBoy.parkVehicle(vehicle);
@@ -79,7 +79,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_given_no_ticket_to_smart_parking_boy() {
+    void should_return_exception_when_fetching_given_no_ticket_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
         smartParkingBoy.parkVehicle(vehicle);
@@ -93,7 +93,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_given_empty_ticket_to_smart_parking_boy() {
+    void should_return_exception_when_fetching_given_empty_ticket_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
         smartParkingBoy.parkVehicle(vehicle);
@@ -107,7 +107,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_given_used_parking_ticket_to_smart_parking_boy() {
+    void should_return_exception_when_fetching_given_used_parking_ticket_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
         ParkingTicket ticket = smartParkingBoy.parkVehicle(vehicle);
@@ -122,7 +122,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_parking_given_parking_lot_is_full_to_smart_parking_boy() {
+    void should_return_exception_when_parking_given_parking_lot_is_full_to_smart_parking_boy() {
         //given
         Vehicle vehicle1 = new Vehicle();
         Vehicle vehicle2 = new Vehicle();
@@ -138,7 +138,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_car_ticket_when_parking_given_parking_lot_1_is_full_to_smart_parking_boy() {
+    void should_return_car_ticket_when_parking_given_parking_lot_1_is_full_to_smart_parking_boy() {
         //given
         ParkingLot parkingLot1 = new ParkingLot(2);
         ParkingLot parkinglot2 = new ParkingLot(2);
