@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 import static com.oocl.cultivation.constant.Constant.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SuperSmartParkingBoyTest {
+class SuperSmartParkingBoyTest {
     private Vehicle vehicle;
     private List<ParkingLot> parkingLotList;
     private SuperSmartParkingBoy superSmartParkingBoy;
@@ -28,7 +28,7 @@ public class SuperSmartParkingBoyTest {
 
 
     @Test
-    public void should_return_parking_ticket_when_parking_given_car_to_smart_parking_boy() {
+    void should_return_parking_ticket_when_parking_given_car_to_smart_parking_boy() {
         //given
         parkingLotList.add(new ParkingLot());
 
@@ -40,7 +40,7 @@ public class SuperSmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_car_when_fetching_car_given_parking_ticket_to_super_smart_parking_boy() {
+    void should_return_car_when_fetching_car_given_parking_ticket_to_super_smart_parking_boy() {
         //given
 
         parkingLotList.add(new ParkingLot());
@@ -54,7 +54,7 @@ public class SuperSmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_correct_car_when_fetching_car_given_multiple_parking_ticket_to_super_smart_parking_boy() {
+    void should_return_correct_car_when_fetching_car_given_multiple_parking_ticket_to_super_smart_parking_boy() {
         //GIVEN
         Vehicle vehicle1 = new Vehicle();
         Vehicle vehicle2 = new Vehicle();
@@ -72,7 +72,7 @@ public class SuperSmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_car_given_wrong_parking_ticket_to_super_smart_parking_boy() {
+    void should_return_exception_when_fetching_car_given_wrong_parking_ticket_to_super_smart_parking_boy() {
         //GIVEN
         parkingLotList.add(new ParkingLot());
         superSmartParkingBoy.parkVehicle(vehicle);
@@ -88,7 +88,7 @@ public class SuperSmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_car_given_no_ticket_to_super_smart_parking_boy() {
+    void should_return_exception_when_fetching_car_given_no_ticket_to_super_smart_parking_boy() {
         //GIVEN
 
         parkingLotList.add(new ParkingLot());
@@ -104,7 +104,7 @@ public class SuperSmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_car_given_empty_ticket_to_super_smart_parking_boy() {
+    void should_return_exception_when_fetching_car_given_empty_ticket_to_super_smart_parking_boy() {
         //GIVEN
 
         parkingLotList.add(new ParkingLot());
@@ -120,7 +120,7 @@ public class SuperSmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_fetching_car_given_used_parking_ticket_to_super_smart_parking_boy() {
+    void should_return_exception_when_fetching_car_given_used_parking_ticket_to_super_smart_parking_boy() {
         //GIVEN
 
         parkingLotList.add(new ParkingLot());
@@ -137,7 +137,7 @@ public class SuperSmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_exception_when_parking_given_one_lot_is_at_max_capacity_to_super_smart_parking_boy() {
+    void should_return_exception_when_parking_given_one_lot_is_at_max_capacity_to_super_smart_parking_boy() {
         //GIVEN
         Vehicle vehicle1 = new Vehicle();
         Vehicle vehicle2 = new Vehicle();
@@ -156,7 +156,7 @@ public class SuperSmartParkingBoyTest {
     }
 
     @Test
-    public void should_return_3_and_6_when_parking_given_2_parking_lot_base_on_rate_to_super_smart_parking_boy() {
+    void should_return_3_and_6_when_parking_given_2_parking_lot_base_on_rate_to_super_smart_parking_boy() {
         ParkingLot parkingLot1 = new ParkingLot(10);
         ParkingLot parkinglot2 = new ParkingLot(20);
         parkingLotList.add(parkingLot1);
